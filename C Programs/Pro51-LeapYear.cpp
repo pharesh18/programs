@@ -12,6 +12,7 @@ int main(){
       cout<<year<<" is a leap year.";
    }else {
       cout<<year<<" is not a leap year.";
-   }		
+   }
+   		
 	return 0;
 }

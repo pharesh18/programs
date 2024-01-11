@@ -15,11 +15,11 @@ int main(){
 		cout<<"\n";
 	}
 	
-	for(i=0; i<=row*2-1; i+=2){
+	for(i=3; i<=row*2; i+=2){
 		for(j=0; j<=i; j++){
 			cout<<" ";
 		}
-		for(k=i; k<row * 2; k++){
+		for(k=i; k<row*2; k++){
 			cout<<"* ";
 		}
 		cout<<"\n";
