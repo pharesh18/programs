@@ -14,36 +14,53 @@ class Node{
 
 void display(Node* &head){
 	if(head == NULL){
-		cout<<"\n\n List is empty\n\n";
+		cout<<"\n\n List is empty!!\n\n";
 		return;
 	}
 	
 	Node* ptr = head;
-	while(ptr != NULL){
+	while(ptr->next != head){
 		cout<<" "<<ptr->data<<"-->";
 		ptr = ptr->next;
 	}
+	cout<<ptr->data<<"-->";
 }
 
 void insertAtFirst(Node* &head, int val){
 	Node* ptr = new Node(val);
+	if(head == NULL){
+		head = ptr;
+		ptr->next = head;
+		display(head);
+		return;
+	}
+	
+	Node* temp = head;
+	while(temp->next != head){
+		temp = temp->next;
+	}
+	
+	temp->next = ptr;
 	ptr->next = head;
 	head = ptr;
 	display(head);
 }
 
 void insertAtLast(Node* &head, int val){
+	Node* ptr = new Node(val);
 	if(head == NULL){
-		insertAtFirst(head, val);
+		head = ptr;
+		ptr->next = head;
+		display(head);
 		return;
 	}
 	
-	Node* ptr = new Node(val);
 	Node* start = head;
-	while(start->next != NULL){
+	while(start->next != head){
 		start = start->next;
 	}
 	start->next = ptr;
+	ptr->next = head;
 	display(head);
 }
 
@@ -53,11 +70,22 @@ void deleteNode(Node* &head, int pos){
 		return;
 	}
 	
+	if(pos == 0 && head->next == head){
+		cout<<"\n\n Node deleted at position "<<pos;
+		head = NULL;
+		return;
+	}
+
 	if(pos == 0){
 		Node* temp = head;
+		Node* ptr = head;
+		while(temp->next != head){
+			temp = temp->next;
+		}
 		head = head->next;
+		temp->next = head;
 		cout<<"\n\n Node deleted at position "<<pos;
-		free(temp);
+		free(ptr);
 		return;
 	}
 	
@@ -65,13 +93,13 @@ void deleteNode(Node* &head, int pos){
 	Node* ptr = head;
 	Node* curptr = head;
 	
-	while(curPos < pos - 1 && ptr->next != NULL){
+	while(curPos < pos - 1 && ptr->next != head){
 		ptr = ptr->next;
 		curPos++;
 	}
 	
-	if(ptr == NULL || ptr->next == NULL){
-		cout<<"\n\n Invalid Positon!!\n\n";
+	if(ptr == head || ptr->next == head){
+		cout<<"\n\n Invalid Position!!\n\n";
 		return;
 	}
 	

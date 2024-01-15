@@ -81,6 +81,30 @@ void deleteNode(Node* &head, int pos){
 	free(temp);
 }
 
+void findMiddleEle(Node* head){
+	if(head == NULL){
+		cout<<"\n\n List is empty!! \n\n";
+		return;
+	}
+	
+	Node* temp = head;
+	int cntr = 0;
+	
+	while(temp != NULL){
+		cntr++;
+		temp = temp->next;
+	}
+	
+	cntr = (cntr-1) / 2;
+	temp = head;
+	while(cntr > 0){
+		temp = temp -> next;
+		cntr--;
+	}
+	
+	cout<<"\n\n Middle element is : "<<temp->data;
+}
+
 int main(){
 	int choice, val;
 	Node* head = NULL;
@@ -90,6 +114,7 @@ int main(){
 		cout<<" 2. Add node at last\n";
 		cout<<" 3. Delete node\n";
 		cout<<" 4. Display linked list\n";
+		cout<<" 5. Find Middle Element\n";
 		cout<<" 0. Exit\n\n";
 		cout<<" Enter your choice : ";
 		cin>>choice;
@@ -116,6 +141,10 @@ int main(){
 			
 			case 4:
 				display(head);
+				break;
+				
+			case 5:
+				findMiddleEle(head);
 				break;
 				
 			case 0:
