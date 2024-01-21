@@ -1,0 +1,117 @@
+create database LibraryManagementSystem;
+
+use LibraryManagementSystem;
+
+create table users(
+	u_id int primary key not null identity(1,1),
+	u_fname char(30) not null,
+	u_lname char(30) not null,
+	u_email nvarchar(30) unique not null,
+	u_password nvarchar(15) not null,
+	u_contact char(10) check (len(u_contact) = 10 and u_contact not like '[^0-9]%') unique not null,
+	is_admin bit default 0,
+);
+
+insert into users(u_fname, u_lname, u_email, u_password, u_contact) values('Haresh', 'Prajapati', 'haresh@gmail.com', '123456', '1234567890');
+
+insert into users(u_fname, u_lname, u_email, u_password, u_contact) values('Manav', 'Patel', 'manav@gmail.com', '123456', '1234567800');
+
+insert into users(u_fname, u_lname, u_email, u_password, u_contact) values('Mohit', 'Chauhan', 'mohit@gmail.com', '123456', '1231567890');
+
+insert into users(u_fname, u_lname, u_email, u_password, u_contact) values('Devarsh', 'Mistri', 'dev@gmail.com', '123456', '1234167890');
+
+insert into users(u_fname, u_lname, u_email, u_password, u_contact) values('Vishnu', 'Prajapati', 'vishnu@gmail.com', '123456', '1234597890');
+
+insert into users(u_fname, u_lname, u_email, u_password, u_contact) values('Manav', 'Patel', 'mav@gmail.com', '123456', '1324523435');
+
+
+select * from users;
+
+
+
+
+create table books(
+	b_id int primary key not null identity(1,1),
+	b_isbn char(20) not null unique,
+	b_name char(50) not null,
+	b_category char(30) not null,
+	b_language varchar(30) not null,
+	b_publisher varchar(30) not null,
+	b_author char(30) not null,
+	b_description nvarchar(200),
+	b_rent numeric not null,
+	b_qty int not null,
+	b_avail bit default 1 not null,
+);
+
+
+INSERT INTO books (b_isbn, b_name, b_category, b_language, b_publisher, b_author, b_description, b_rent, b_qty, b_avail)
+VALUES 
+('9781234567897', 'The Great Book', 'Fiction', 'English', 'BookPublisher', 'John Author', 'A wonderful story about the adventures of the main characters in a mystical world. Dive into the captivating narrative filled with twists and turns.', 10.00, 50, 1),
+('9783456789012', 'Programming 101', 'Technology', 'English', 'TechPress', 'Alice Coder', 'Learn programming basics with this comprehensive guide. Perfect for beginners and those looking to refresh their coding skills.', 19.00, 30, 1),
+('9789876543210', 'Cooking Delights', 'Cooking', 'English', 'FoodBooks', 'Chef Kate', 'Explore delicious recipes from around the world. This cookbook is a culinary journey filled with mouth-watering dishes for every occasion.', 15.00, 40, 1),
+('9785432109876', 'History Unveiled', 'History', 'English', 'HistoryPublishers', 'Historian Smith', 'Discover untold historical events and explore the secrets of the past. This book takes you on a fascinating journey through time.', 24.00, 20, 1),
+('9780987654321', 'Nature Wonders', 'Science', 'English', 'ScienceBooks', 'Naturalist Jane', 'Explore the beauty of nature and its wonders. From diverse ecosystems to incredible wildlife, this book is a visual and educational treat.', 12.00, 60, 1);
+
+select * from books;
+
+
+
+create table borrower(
+	borrower_id int primary key not null identity(1,1),
+	u_id int foreign key references users(u_id),
+	b_id int foreign key references books(b_id),
+	borrow_from_date datetime not null,
+	borrow_to_date datetime not null,
+);
+
+
+INSERT INTO borrower (u_id, b_id, borrow_from_date, borrow_to_date)
+VALUES 
+(1, 1, '2022-01-20 08:00:00', '2022-02-20 12:30:00'),
+(2, 3, '2022-02-01 14:45:00', '2022-03-01 18:00:00'),
+(3, 2, '2022-03-10 09:30:00', '2022-04-10 16:15:00'),
+(4, 4, '2022-04-15 11:00:00', '2022-05-15 17:45:00'),
+(5, 5, '2022-05-01 10:15:00', '2022-06-01 14:00:00');
+
+select * from borrower;
+
+
+create table staff(
+	s_id int primary key not null identity(1,1),
+	s_fname char(30) not null,
+	s_lname char(30) not null,
+	s_email nvarchar(30) unique not null,
+	s_password nvarchar(15) not null,
+	s_contact char(10) check (len(s_contact) = 10 and s_contact not like '[^0-9]%') unique not null,
+	s_position varchar(20) not null,
+	s_salary numeric not null
+);
+
+
+INSERT INTO staff (s_fname, s_lname, s_email, s_password, s_contact, s_position, s_salary)
+VALUES 
+    ('John', 'Doe', 'john.doe@email.com', 'password123', '1234567890', 'Manager', 60000),
+    ('Jane', 'Smith', 'jane.smith@email.com', 'pass456', '9876543210', 'Assistant', 45000),
+    ('Mike', 'Johnson', 'mike.j@email.com', 'secret789', '4567890123', 'Clerk', 35000),
+    ('Sarah', 'Brown', 'sarah.b@email.com', 'myp@ss', '7890123456', 'Technician', 48000),
+    ('David', 'Wilson', 'david.w@email.com', 'secure123', '2345678901', 'Analyst', 55000);
+
+
+
+
+create table finance(
+	f_id int primary key not null identity(1,1),
+	borrower_id int foreign key references borrower(borrower_id),
+	total_rent numeric not null,
+	payment_status bit not null,
+	payment_at datetime
+);
+
+INSERT INTO finance (borrower_id, total_rent, payment_status, payment_at)
+VALUES 
+    (1, 500.00, 1, '2024-01-19 10:30:00'),
+    (2, 700.50, 0, NULL),
+    (3, 300.25, 1, '2024-01-18 15:45:00'),
+    (4, 900.75, 0, NULL),
+    (5, 600.00, 1, '2024-01-17 12:00:00');

@@ -1,0 +1,92 @@
+create database SocialMedia;
+
+
+use SocialMedia;
+
+create table users(
+	u_id int primary key not null identity(1,1),
+	u_username nvarchar(30) not null unique,
+	u_fname char(30) not null,
+	u_lname char(30) not null,
+	u_email nvarchar(30) unique not null,
+	u_password nvarchar(15) not null,
+	u_dob date not null,
+	is_admin bit default 0,
+);
+
+
+create table posts(
+	p_id int primary key not null identity(1,1),
+	u_username nvarchar(30) foreign key references users(u_username) not null,
+	p_is_image bit,
+	p_image varbinary(max),
+	p_caption varchar(200),
+);
+
+create table likes(
+	l_id int primary key not null identity(1,1),
+	u_username nvarchar(30) foreign key references users(u_username) not null,
+	p_id int foreign key references posts(p_id) not null,
+	liked_at datetime not null,
+);
+
+
+create table comments(
+	l_id int primary key not null identity(1,1),
+	u_username nvarchar(30) foreign key references users(u_username) not null,
+	p_id int foreign key references posts(p_id) not null,
+	c_description nvarchar(300) not null,
+	commented_at datetime not null,
+);
+
+
+create table saved(
+	s_id int primary key not null identity(1,1),
+	u_username nvarchar(30) foreign key references users(u_username) not null,
+	p_id int foreign key references posts(p_id) not null,
+	s_category char(20),
+	saved_at datetime not null,
+);
+
+
+use SocialMedia;
+
+INSERT INTO users (u_username, u_fname, u_lname, u_email, u_password, u_dob, is_admin)
+VALUES
+('user1', 'Haresh', 'Prajapati', 'haresh@example.com', 'pass123', '1985-03-12', 0),
+('user2', 'Manav', 'Patel', 'manav@example.com', 'pass456', '1990-08-25', 0),
+('user3', 'Mohit', 'Chauhan', 'mohit@example.com', 'pass789', '1982-11-30', 0),
+('user4', 'Devarsh', 'Mistri', 'devarsh@example.com', 'pass321', '1995-04-17', 0),
+('user5', 'Vishnu', 'Prajapati', 'vishnu@example.com', 'pass555', '1988-07-22', 1);
+
+INSERT INTO posts (u_username, p_is_image, p_image, p_caption)
+VALUES
+('user1', 1, (select * from openrowset(bulk 'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\image\coffee.jpg', single_blob) as image), 'This is a text post by John.'),
+('user2', 1, (select * from openrowset(bulk 'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\image\coffee.jpg', single_blob) as image), 'An image post by Alice.'),
+('user3', 1, (select * from openrowset(bulk 'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\image\coffee.jpg', single_blob) as image), 'Just a simple post by Bob.'),
+('user4', 1, (select * from openrowset(bulk 'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\image\coffee.jpg', single_blob) as image), 'An image post by Eva.'),
+('user5', 1, (select * from openrowset(bulk 'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\image\coffee.jpg', single_blob) as image), 'Mike shares his thoughts.');
+
+INSERT INTO likes (u_username, p_id, liked_at)
+VALUES
+('user2', 1, '2022-01-15 08:30:00'),
+('user3', 2, '2022-01-15 10:45:00'),
+('user4', 3, '2022-01-15 12:15:00'),
+('user5', 4, '2022-01-15 14:20:00'),
+('user1', 5, '2022-01-15 16:40:00');
+
+INSERT INTO comments (u_username, p_id, c_description, commented_at)
+VALUES
+('user3', 1, 'Nice post!', '2022-01-15 09:00:00'),
+('user4', 2, 'Awesome picture!', '2022-01-15 11:00:00'),
+('user5', 3, 'I agree with you.', '2022-01-15 12:30:00'),
+('user1', 4, 'Cool image, Eva!', '2022-01-15 15:00:00'),
+('user2', 5, 'Well said, Mike!', '2022-01-15 17:30:00');
+
+INSERT INTO saved (u_username, p_id, s_category, saved_at)
+VALUES
+('user4', 1, 'Favorites', '2022-01-15 09:30:00'),
+('user5', 2, 'Memories', '2022-01-15 11:45:00'),
+('user1', 3, 'Inspiration', '2022-01-15 13:15:00'),
+('user2', 4, 'Collections', '2022-01-15 15:20:00'),
+('user3', 5, 'Favorites', '2022-01-15 18:00:00');

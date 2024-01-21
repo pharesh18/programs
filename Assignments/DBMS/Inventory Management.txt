@@ -1,0 +1,90 @@
+create database InventoryManagement;
+
+use InventoryManagement;
+
+create table products (
+    p_id int primary key not null identity(1,1),
+    p_name char(30) not null,
+    p_category varchar(30),
+    p_price decimal(10, 2) not null,
+    p_stock_qty int not null,
+    p_description nvarchar(255)
+);
+
+create table suppliers (
+    s_id int primary key not null identity(1,1),
+    s_name char(30) not null,
+    s_email nvarchar(50),
+    s_contact char(10) check (len(s_contact) = 10 and s_contact not like '[^0-9]%') unique not null,
+	s_address nvarchar(255)
+);
+
+create table customers (
+    c_id int primary key not null identity(1,1),
+    c_name char(30) not null,
+    c_email nvarchar(50),
+    c_contact char(10) check (len(c_contact) = 10 and c_contact not like '[^0-9]%') unique not null,
+	c_address nvarchar(255),
+    c_registration_date datetime
+);
+
+create table orders (
+    o_id int primary key not null identity(1,1),
+    c_id int foreign key references customers(c_id) not null,
+	p_id int foreign key references products(p_id) not null,
+    order_date datetime not null,
+	order_qty int not null,
+    order_status char(30) not null,
+    order_payment_status bit not null,
+);
+
+create table employees (
+    e_id int primary key not null identity(1,1),
+    e_fname char(30) not null,
+    e_lname char(30) not null,
+    e_position varchar(50),
+    e_email nvarchar(50),
+	e_contact char(10) check (len(e_contact) = 10 and e_contact not like '[^0-9]%') unique not null,
+	e_address nvarchar(100),
+);
+
+
+INSERT INTO products (p_name, p_category, p_price, p_stock_qty, p_description)
+VALUES
+('Product1', 'Category1', 19.99, 100, 'Description for Product1'),
+('Product2', 'Category2', 29.99, 150, 'Description for Product2'),
+('Product3', 'Category1', 14.99, 75, 'Description for Product3'),
+('Product4', 'Category3', 39.99, 120, 'Description for Product4'),
+('Product5', 'Category2', 24.99, 200, 'Description for Product5');
+
+INSERT INTO suppliers (s_name, s_email, s_contact, s_address)
+VALUES
+('Supplier1', 'supplier1@example.com', '1234567890', 'Supplier1 Address'),
+('Supplier2', 'supplier2@example.com', '9876543210', 'Supplier2 Address'),
+('Supplier3', 'supplier3@example.com', '8765432109', 'Supplier3 Address'),
+('Supplier4', 'supplier4@example.com', '2345678901', 'Supplier4 Address'),
+('Supplier5', 'supplier5@example.com', '3456789012', 'Supplier5 Address');
+
+INSERT INTO customers (c_name, c_email, c_contact, c_address, c_registration_date)
+VALUES
+('Customer1', 'customer1@example.com', '1122334455', 'Customer1 Address', '2023-01-01'),
+('Customer2', 'customer2@example.com', '2233445566', 'Customer2 Address', '2023-01-02'),
+('Customer3', 'customer3@example.com', '3344556677', 'Customer3 Address', '2023-01-03'),
+('Customer4', 'customer4@example.com', '4455667788', 'Customer4 Address', '2023-01-04'),
+('Customer5', 'customer5@example.com', '5566778899', 'Customer5 Address', '2023-01-05');
+
+INSERT INTO orders (c_id, p_id, order_date, order_qty, order_status, order_payment_status)
+VALUES
+(1, 1, '2023-01-06', 10, 'Processing', 0),
+(2, 3, '2023-01-07', 5, 'Shipped', 1),
+(3, 2, '2023-01-08', 8, 'Delivered', 1),
+(4, 4, '2023-01-09', 15, 'Processing', 0),
+(5, 5, '2023-01-10', 20, 'Pending', 0);
+
+INSERT INTO employees (e_fname, e_lname, e_position, e_email, e_contact, e_address)
+VALUES
+('John', 'Doe', 'Manager', 'john.doe@example.com', '9876543210', 'Employee1 Address'),
+('Alice', 'Smith', 'Sales Rep', 'alice.smith@example.com', '8765432109', 'Employee2 Address'),
+('Bob', 'Johnson', 'Accountant', 'bob.johnson@example.com', '2345678901', 'Employee3 Address'),
+('Eva', 'Williams', 'IT Specialist', 'eva.williams@example.com', '3456789012', 'Employee4 Address'),
+('Mike', 'Brown', 'Warehouse Clerk', 'mike.brown@example.com', '1234567890', 'Employee5 Address');
