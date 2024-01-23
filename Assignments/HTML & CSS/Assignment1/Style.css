@@ -1,0 +1,288 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F5F5F5;
+    padding: 4px 7%;
+    font-size: 14px;
+}
+
+.header-top span {
+    margin-right: 8px;
+}
+
+.top-left {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top-right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.circles {
+    display: flex;
+    align-items: center;
+}
+
+.circle-outlined {
+    width: 8px;
+    height: 8px;
+    background-color: #fff;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+.circle-filled {
+    width: 8px;
+    height: 8px;
+    background-color: #000;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+.icon-cont {
+    display: flex;
+    align-items: center;
+}
+
+.icon-cont .search {
+    width: 13px;
+}
+
+
+
+
+
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 7%;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-left img {
+    margin-right: 20px;
+}
+
+.ministry-img {
+    width: 120px;
+    height: 40px;
+}
+
+.rec-img {
+    width: 100px;
+    height: 40px;
+}
+
+.pfc-img {
+    width: 50px;
+    height: 40px;
+}
+
+.header-right ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-right ul li {
+    list-style-type: none;
+    margin-left: 20px;
+}
+
+.home-icon {
+    width: 18px;
+}
+
+.register-btn {
+    background-color: #fff;
+    color: #F58216;
+    border: 1px solid #F58216;
+    padding: 5px 8px;
+    border-radius: 4px;
+}
+
+
+
+
+
+
+.main-body {
+    background-image: url("images/body.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 450px;
+    position: relative;
+}
+
+.main-body .content {
+    padding-top: 4%;
+    padding-left: 5%;
+}
+
+.main-body .content span {
+    font-size: 36px;
+    color: #fff;
+    font-weight: 400;
+}
+
+.main-body .content .strong {
+    font-weight: 900;
+}
+
+.main-body .upper-cont {
+    background-image: url("images/quotation-mark.svg");
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: 95% 10%;
+    background-size: 180px;
+    height: 140px;
+    width: 80%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -30px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.upper-cont-left img {
+    position: absolute;
+    width: 180px;
+    bottom: 0;
+    left: 5%;
+}
+
+.upper-cont-right {
+    position: absolute;
+    right: 8%;
+    top: 15px;
+    font-weight: 500;
+    width: calc(100% - 20% - 180px);
+}
+
+.upper-cont-right .text-content {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.upper-cont-right .name p {
+    font-size: 18px;
+    font-weight: 500;
+    color: #F58216;
+    margin: 5px 0px 2px 0px;
+}
+
+.upper-cont-right .name span {
+    font-size: 14px;
+    padding-left: 10px;
+}
+
+
+
+
+
+.schemes {
+    background-color: #1B2F68;
+    display: flex;
+    flex-direction: column;
+    padding: 80px 7% 30px 7%;
+}
+
+.scheme-title {
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.scheme-cards {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.scheme-cards .scheme-card {
+    width: 320px;
+    height: 230px;
+    background-color: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.scheme-cards .scheme-card img {
+    width: 320px;
+    height: 190px;
+}
+
+.scheme-cards .scheme-card p {
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+
+
+
+
+
+.reporting {
+    background-color: #F6F4F4;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 7% 20px 7%;
+}
+
+.reporting-title {
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.reporting-cards {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.reporting-cards .reporting-card {
+    width: 160px;
+    /* width: 14%; */
+    height: 180px;
+    background-color: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.reporting-cards .reporting-card img {
+    width: 100%;
+    height: 130px;
+}
+
+.reporting-cards .reporting-card p {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 10px;
+}
